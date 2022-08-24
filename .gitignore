@@ -72,3 +72,5 @@ baseline.json
 .husky/_
 
 cache
+
+toDoApp.code.workspace
