@@ -72,7 +72,7 @@ export class ToDoComponent implements OnInit {
         )
     } else {
 
-        Task.id = this.id;
+        Task.taskID = this.id;
         this.service.updateTask(this.id, Task).subscribe({
                 next: () => {
                     this.form.reset();
@@ -109,7 +109,7 @@ export class ToDoComponent implements OnInit {
 
   editTask(data:any){
    this.action = "Edit Task";
-   this.id = data.id;
+   this.id = data.taskID;
 
    this.form.patchValue({
     taskName: data.taskName,

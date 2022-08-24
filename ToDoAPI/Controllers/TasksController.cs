@@ -97,11 +97,10 @@ namespace ToDoAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(EditedTask).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+				_context.Update(EditedTask);
+				await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
