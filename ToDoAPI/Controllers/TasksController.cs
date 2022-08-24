@@ -43,6 +43,7 @@ namespace ToDoAPI.Controllers
             {
                 if (_context.Tasks == null)
                     return NotFound();
+                    
                 List<Tasks> TaskList = await _context.Tasks.ToListAsync(); 
                 return TaskList.OrderByDescending(TaskSet => TaskSet.Priority).ToList();
             }

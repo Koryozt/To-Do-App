@@ -14,6 +14,7 @@ export class ToDoComponent implements OnInit {
     form !: FormGroup;
     id : number | undefined;
     action = "Add Task";
+    selectValue : string | undefined;
   
     constructor(private fb : FormBuilder, private service : ToDoService, private toastr : ToastrService) 
     {
@@ -27,12 +28,15 @@ export class ToDoComponent implements OnInit {
         });
     }
 
+    
+
   ngOnInit(): void {
     this.getAllTasks();
   }
 
   getAllTasks()
   {
+
     this.service.getTasks().subscribe
     (
       {
@@ -43,6 +47,24 @@ export class ToDoComponent implements OnInit {
         },
         error: (Error : any) => console.log(Error)
       }
+    )
+  }
+
+  filterByPriority()
+  {
+    this.service.getTasksByPriority().subscribe
+    (
+        {
+            next: (Data: any) => 
+            {
+                this.tasklist = Data;
+                console.log(Data);
+            },
+            error: (Error: any) =>
+            {
+                console.log(Error);
+            }
+        }
     )
   }
 
@@ -119,5 +141,10 @@ export class ToDoComponent implements OnInit {
     priority: data.priority
    })
     
+  }
+
+  changeState(Task : any){
+    Task.isDone = true;
+    console.log(Task)
   }
 }
