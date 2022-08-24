@@ -37,7 +37,7 @@ namespace ToDoAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("DueDate")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetime");
 
                     b.Property<bool>("IsDone")
                         .HasColumnType("bit");

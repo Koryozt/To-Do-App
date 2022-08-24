@@ -20,7 +20,7 @@ namespace ToDoAPI.Models
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTimeOffset DueDate { get; set; }
+        public DateTime DueDate { get; set; }
 
         [Required]
         public bool IsDone { get; set; } = false;

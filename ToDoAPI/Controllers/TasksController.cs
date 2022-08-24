@@ -78,13 +78,10 @@ namespace ToDoAPI.Controllers
         {
             try
             {
-                if (_context.Tasks == null)
-                    return Problem("Entity set 'ToDoContext.Tasks' is null");
-
-                await _context.Tasks.AddAsync(NewTask);
+                await _context.AddAsync(NewTask);
                 await _context.SaveChangesAsync();
 
-                return Ok(_context);
+                return Ok(NewTask);
             }
             catch (System.Exception Ex)
             {

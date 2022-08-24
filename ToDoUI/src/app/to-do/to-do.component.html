@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="title">
+        <p class="text-center mt-5 text-uppercase fs-1">re:mindme</p>
+        <h4 class="text-center mt-3 text-uppercase">Make your life easier witout remembering hard things</h4>
+        <br> <br>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-7">
+            <div class="title">
+                <p class="text-center text-uppercase fs-3">Tasks List</p>
+            </div>
+
+            <div class="tasks">
+                <table class="table table-light table-hover table-bordered  mt-4 text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">NAME</th>
+                            <th scope="col">DESCRIPTION</th>
+                            <th scope="col">DUE DATE</th>
+                            <th scope="col">COMPLETED</th>
+                            <th scope="col">PRIORITY</th>
+                            <th scope="col">EDIT</th>
+                            <th scope="col">DELETE</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let task of tasklist">
+                            <td>{{ task.taskName }}</td>
+                            <td>{{ task.description }}</td>
+                            <td>{{ task.dueDate }}</td>
+                            <td>{{ task.isDone }}</td>
+                            <td>{{ task.priority }}</td>
+                            <td (click)="editTask(task)"><i class="fa-solid fa-pen-to-square"></i></td>
+                            <td (click)="deleteTask(task.taskID)"><i class="fa-solid fa-trash-can"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-lg-5 "> 
+
+            <div class="title">
+                <p class="text-center text-uppercase fs-2">{{action | uppercase}}</p>
+            </div>
+
+            <div class="addtask">
+                <form [formGroup]="form" (ngSubmit)="addTask()">
+                    <div class="input-group">
+                        <span class="input-group-text">@</span>
+                        <input formControlName="taskName" type="text" class="form-control" placeholder="Task name" minlength="3" required>
+                    </div>
+                    <div class="input-group mt-2">
+                        <span class="input-group-text">@</span>
+                        <input formControlName="description" type="text" class="form-control" placeholder="Description" minlength="5" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="input-group mt-2">
+                                <span class="input-group-text">@</span>
+                                <input formControlName="dueDate" type="text" class="form-control" placeholder="Due Date - [YYYY/MM/DD]" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mt-2">
+                            <select class="form-select" formControlName="priority" required>
+                            <option selected disabled>Priority</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-dark text-uppercase" >Accept</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
