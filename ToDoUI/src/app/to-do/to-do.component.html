@@ -59,18 +59,18 @@
             <div class="addtask mt-4">
                 <form [formGroup]="form" (ngSubmit)="addTask()">
                     <div class="input-group">
-                        <span class="input-group-text">@</span>
+                        <span class="input-group-text"> <i class="fa-solid fa-pencil"></i> </span>
                         <input formControlName="taskName" type="text" class="form-control" placeholder="Task name" minlength="3" required>
                     </div>
                     <div class="input-group mt-2">
-                        <span class="input-group-text">@</span>
+                        <span class="input-group-text"> <i class="fa-solid fa-clipboard"></i> </span>
                         <input formControlName="description" type="text" class="form-control" placeholder="Description" minlength="5" required>
                     </div>
 
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="input-group mt-2">
-                                <span class="input-group-text">@</span>
+                                <span class="input-group-text"> <i class="fa-solid fa-calendar-days"></i> </span>
                                 <input formControlName="dueDate" type="text" class="form-control" placeholder="Due Date - [YYYY/MM/DD]" required>
                             </div>
                         </div>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="d-grid gap-2 mt-4">
-                        <button type="submit" class="btn btn-dark text-uppercase" >Accept</button>
+                        <button type="submit" class="btn btn-dark text-uppercase text-center" >Done</button>
                     </div>
                 </form>
             </div>
