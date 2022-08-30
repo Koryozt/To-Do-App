@@ -3,13 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using ToDoAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-string PolicyName = "AllowWebApps";
-string ConnectionStringName = "ToDo";
+string PolicyName = "AllowWebApps", DatabaseConnectionString = "ToDo", RedisConnectionString = "Redis", InstanceName = "RedisToDo_";
 // Add services to the container.
 
 builder.Services.AddDbContext<ToDoContext>(Options => 
 {
-    Options.UseSqlServer(builder.Configuration.GetConnectionString(ConnectionStringName));
+    Options.UseSqlServer(builder.Configuration.GetConnectionString(DatabaseConnectionString));
 });
 
 builder.Services.AddCors(Options => 
@@ -19,6 +18,12 @@ builder.Services.AddCors(Options =>
         Policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
                                                 
+});
+
+builder.Services.AddStackExchangeRedisCache(Options =>
+{
+    Options.Configuration = builder.Configuration.GetConnectionString(RedisConnectionString);
+    Options.InstanceName = InstanceName;
 });
 
 builder.Services.AddControllers();

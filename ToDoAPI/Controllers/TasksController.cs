@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using ToDoAPI.Data;
+using ToDoAPI.Extensions;
 using ToDoAPI.Models;
 
 namespace ToDoAPI.Controllers
@@ -14,43 +16,83 @@ namespace ToDoAPI.Controllers
     public class TasksController : ControllerBase
     {
         private readonly ToDoContext _context;
+        private readonly IDistributedCache _cache;
 
-        public TasksController(ToDoContext Context)
+        public TasksController(ToDoContext Context, IDistributedCache Cache)
         {
             _context = Context;
+            _cache = Cache;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tasks>>> GetAllTasks()
+        private async Task<List<Tasks>> GetTasksIfNotInCache()
         {
             try
             {
                 if(_context.Tasks == null)
-                    return NotFound();
+                    return new List<Tasks>();
 
                 return await _context.Tasks.ToListAsync();
             }
             catch (System.Exception Ex)
             {
-                return BadRequest(Ex.Message);
+                Console.WriteLine(Ex.Message);
+                return new List<Tasks>();
             }
         }
 
-        [HttpGet("by_priority")]
-        public async Task<ActionResult<IEnumerable<Tasks>>> GetAllTasksByPriority()
+        private async Task<List<Tasks>> GetTasksByPriorityIfNotInCache()
         {
             try
             {
                 if (_context.Tasks == null)
-                    return NotFound();
+                    return new List<Tasks>();
                     
                 List<Tasks> TaskList = await _context.Tasks.ToListAsync(); 
                 return TaskList.OrderByDescending(TaskSet => TaskSet.Priority).ToList();
             }
             catch (System.Exception Ex)
             {
-                return BadRequest(Ex.Message);
+                Console.WriteLine(Ex.Message);
+                return new List<Tasks>();
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Tasks>>> GetAllTasks()
+        {
+            List<Tasks>? Tasks = null;
+            string RecordKey = "ToDo_";
+
+            Tasks = await _cache.GetRecordAsync<List<Tasks>>(RecordKey);
+
+            if (Tasks is null)
+            {
+                Tasks = await GetTasksIfNotInCache();
+                await _cache.SetRecordAsync<List<Tasks>>(RecordKey, Tasks);
+
+                return Tasks;
+            }
+
+            return Tasks;
+        }
+
+        [HttpGet("by_priority")]
+        public async Task<ActionResult<IEnumerable<Tasks>>> GetAllTasksByPriority()
+        {
+            List<Tasks>? Tasks = null;
+            string RecordKey = "ToDoPriority_";
+
+            Tasks = await _cache.GetRecordAsync<List<Tasks>>(RecordKey);
+
+            if (Tasks is null)
+            {
+                Tasks = await GetTasksByPriorityIfNotInCache();
+                await _cache.SetRecordAsync<List<Tasks>>(RecordKey, Tasks);
+
+                return Tasks;
+            }
+
+            return Tasks;
         }
 
         [HttpGet("{id}")]

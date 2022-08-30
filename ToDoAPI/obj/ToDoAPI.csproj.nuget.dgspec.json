@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrador\\Documents\\Apps\\ToDoApp\\ToDoAPI\\ToDoAPI.csproj": {}
+    "c:\\Users\\Administrador\\Documents\\Apps\\ToDoApp\\ToDoAPI\\ToDoAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrador\\Documents\\Apps\\ToDoApp\\ToDoAPI\\ToDoAPI.csproj": {
+    "c:\\Users\\Administrador\\Documents\\Apps\\ToDoApp\\ToDoAPI\\ToDoAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrador\\Documents\\Apps\\ToDoApp\\ToDoAPI\\ToDoAPI.csproj",
+        "projectUniqueName": "c:\\Users\\Administrador\\Documents\\Apps\\ToDoApp\\ToDoAPI\\ToDoAPI.csproj",
         "projectName": "ToDoAPI",
-        "projectPath": "C:\\Users\\Administrador\\Documents\\Apps\\ToDoApp\\ToDoAPI\\ToDoAPI.csproj",
+        "projectPath": "c:\\Users\\Administrador\\Documents\\Apps\\ToDoApp\\ToDoAPI\\ToDoAPI.csproj",
         "packagesPath": "C:\\Users\\Administrador\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrador\\Documents\\Apps\\ToDoApp\\ToDoAPI\\obj\\",
+        "outputPath": "c:\\Users\\Administrador\\Documents\\Apps\\ToDoApp\\ToDoAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrador\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -55,6 +55,14 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[6.0.8, )"
+            },
+            "Microsoft.Extensions.Caching.StackExchangeRedis": {
+              "target": "Package",
+              "version": "[6.0.8, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.6.48, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
