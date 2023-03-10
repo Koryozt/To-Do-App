@@ -1,4 +1,4 @@
-# Re:Mindme
+# re:mindme
 
 Simple To Do Application with a basic CRUD and some other funtionalities. 
 
